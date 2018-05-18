@@ -1,0 +1,87 @@
+.sidebar-nav {
+    margin-top: 40px;
+    padding: 0;
+    list-style: none;
+}
+body{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#efc5ca+0,d24b5a+27,d24b5a+69,ba2737+71,f18e99+100 */
+background: #efc5ca; /* Old browsers */
+background: -moz-linear-gradient(top, #efc5ca 0%, #d24b5a 27%, #d24b5a 69%, #ba2737 71%, #f18e99 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #efc5ca 0%,#d24b5a 27%,#d24b5a 69%,#ba2737 71%,#f18e99 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #efc5ca 0%,#d24b5a 27%,#d24b5a 69%,#ba2737 71%,#f18e99 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efc5ca', endColorstr='#f18e99',GradientType=0 ); /* IE6-9 */
+}
+.heading{
+    color: white;
+}
+.navbar{
+    border-radius: 0;
+}
+.navbar-brand{
+    font-family: 'Satisfy','Cursive';
+}
+      #locationField, #controls {
+        position: relative;
+        width: 480px;
+      }
+      #autocomplete {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 480px;
+        height: 50px;
+      }
+
+      #id_blood_group{
+          width: 480px;
+          height: 30px;
+      }
+      #id_gender{
+          width: 480px;
+          height: 30px;
+      }
+      .label {
+        text-align: right;
+        font-weight: bold;
+        width: 100px;
+        color: #7F2545;
+      }
+      #address {
+        border: 1px solid #000090;
+        background-color: #f0f0ff;
+        width: 550px;
+        padding-right: 2px;
+      }
+      #address td {
+        font-size: 10pt;
+      }
+      .field {
+        width: 99%;
+      }
+      .slimField {
+        width: 80px;
+      }
+      .wideField {
+        width: 200px;
+      }
+      #locationField {
+        height: 20px;
+        margin-bottom: 2px;
+      }
+      .newReq{
+          align-items: center;
+          align-self: center;
+      }
+      #bloodTable{
+        color: #7F2545;
+        width: 600px;
+        padding-right: 2px;
+        padding-bottom: 10px;
+        padding-left: 5px;
+        padding-top: 2px;
+      }#reqTable{
+        color: #7F2545;
+        width: 500px;
+        padding-right: 2px;
+        padding-left: 4px;
+      }

@@ -1,0 +1,499 @@
+{% extends "bloodonor/base.html" %}
+{% load staticfiles %}
+<head xmlns="http://www.w3.org/1999/html" xmlns:width="http://www.w3.org/1999/xhtml">
+    <meta charset="utf-8">
+    {% block title %}<title>Profile | BDonate </title>{% endblock %}
+
+</head>
+<body>
+{% block content %}
+<br /> <br /> <br />
+<div class="container-fluid">
+<div class="list-group" >
+
+    <table style=" width: 100%;color: #5b080a">
+        <tr>
+            <td style="width:800px"><h1 style="color:#7F2545"> <strong>BDonate User:</strong></h1></td><td style="width:800px" ><h1><strong>{{ user.first_name }} {{user.last_name}}</strong></h1></td>
+            <td style="width:800px" ><h1 style="color:#7F2545"> <strong>Location:</strong></h1></td><td style="width:800px" ><h1><strong>{{user.account.city}}, {{user.account.country}}</strong></h1></td>
+
+                   </tr>
+    {%if user.is_donor %}
+        <tr>
+            <td style="width:800px" ><h1 style="color:#7F2545"> <strong>Blood Group:</strong></h1></td><td style="width:800px"><h1><strong>{{ user.donor.bloodGroup}}</strong></h1></td>
+            <td style="width:800px"><h1 style="color:#7F2545"> <strong>Last Donated:</strong></h1></td><td style="width:800px"> <input style="width:80%" type="date"; id="last_donate"; value="{{user.donor.last_donated_date|date:'Y-m-d'}}"; ></input></td>
+        </tr>
+
+        <tr>
+             <td style="width:800px" ><h1 style="color:#7F2545"> <strong>Status:</strong></h1></td>
+
+            <td id ="able" style="width:800px"><h1><STRONG><span >{% if user.donor.capable %} Eligible {% else %} Not Eligible {% endif %}</span> </STRONG></h1></td>
+
+            <td style="width:800px"><h3 style="color:#7F2545"> <strong>Update Last Donated Date:</strong></h3></td><td style="width:800px"> <button id="changeDonate"; style=" width:80%" ><strong> UPDATE </strong></button></td>
+        </tr>
+
+        <tr>
+            <td colspan="4"><h4><strong>Keep Your Last Donated Date updated as you will not be eligible for blood donation till 3 months of your last donated date! </strong></h4></td>
+        </tr>
+        {% endif %}
+
+        </table>
+    </div>
+    <br /><br />
+    {%if not user.is_donor %}
+    <div id="bloodTable">
+        <h1 style="color:#5b080a"><strong>Reserved Blood Collection Of Your Hospital</strong></h1>
+    <table>
+        <tr>
+            <td style="width:100px"><h1>O+ : </h1></td><td><input style="width: 90%"; type="Number"; id="op"; value="{{user.blood.o_pos}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+            <td style="width:100px"><h1>O- : </h1></td><td><input style="width: 90%"; type="Number"; id="on"; value="{{user.blood.o_neg}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+        </tr>
+        <tr>
+            <td style="width:100px"><h1>A+ : </h1></td><td><input style="width: 90%"; type="Number"; id="ap"; value="{{user.blood.a_pos}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+            <td style="width:100px"><h1>A- : </h1></td><td><input style="width: 90%"; type="Number"; id="an"; value="{{user.blood.a_neg}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+        </tr>
+        <tr>
+            <td style="width:100px"><h1>B+ : </h1></td><td> <input style="width: 90%"; type="Number"; id="bp"; value="{{user.blood.b_pos}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+            <td style="width:100px"><h1>B- : </h1></td><td> <input style="width: 90%"; type="Number"; id="bn"; value="{{user.blood.b_neg}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+        </tr>
+        <tr>
+            <td style="width:100px"><h1>AB+ : </h1></td><td> <input style="width: 90%"; type="Number"; id="abp"; value="{{user.blood.ab_pos}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+            <td style="width:100px"><h1>AB- : </h1></td><td> <input style="width: 90%"; type="Number"; id="abn"; value="{{user.blood.ab_neg}}"; disabled="true"> </input> &nbsp; &nbsp; </td>
+        </tr>
+        <tr><td style="width:100px" colspan="2"><button style="color:#880000 ;width:95%" id="update"><strong>Update Button</strong></button></td>
+            <td style="width:100px" colspan="2"><button  style="color:#880000; width:95%" id="save"><strong>Save Button</strong></button></td>
+        </tr>
+    </table>
+    </div>
+    {% endif %}
+
+    <br /> <br />
+<div class="right" style="color: #7F2545">
+    <h1 style="color: #5b080a"><STRONG>Make A New Blood Request Here!</STRONG></h1>
+          <small style="color: #00117f">Eligible Donors of Your Area will be Notified With Your Registered Phone Number!</small>
+    <br />
+        <form method="POST">
+            {% csrf_token %}
+            <br />
+            <span><strong>Blood Group</strong></span>
+            <br />
+            <select  id="blood" style="height:30px; width: 550px">
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select><br />
+            <br />
+            <STRONG>Require Units of Blood</STRONG><br />
+            <input id="bagNumber" style="height:30px; width: 550px" type="number"  name="bag"><br />
+            <br />
+            <STRONG>Blood Donation Date</STRONG><br />
+            <input id = "datefield" style="height:30px; width: 550px" type="date" name="day" min="2018-01-02"><br /><br />
+            <small><strong>Search The Address Where Blood Donation will be Arranged!</strong></small>
+ <div id="locationField">
+      <input id="autocomplete" placeholder="Enter your address" style="height:50px; width: 550px"
+             onFocus="geolocate()" type="text"></input>
+    </div>
+    <br /><br /> <br />
+    <table id="address">
+      <tr>
+        <td class="label">Street address</td>
+        <td class="slimField"><input class="field" id="street_number"
+              disabled="true"></input></td>
+        <td class="wideField" colspan="2"><input class="field" id="route"
+              disabled="true"></input></td>
+      </tr>
+      <tr>
+        <td class="label">City</td>
+        <!-- Note: Selection of address components in this example is typical.
+             You may need to adjust it for the locations relevant to your app. See
+             https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+        -->
+        <td class="wideField" colspan="3"><input class="field" id="locality"
+              disabled="true"></input></td>
+      </tr>
+      <tr>
+        <td class="label">State</td>
+        <td class="slimField"><input class="field"
+              id="administrative_area_level_1" disabled="true"></input></td>
+        <td class="label">Zip code</td>
+        <td class="wideField"><input class="field" id="postal_code"
+              disabled="true"></input></td>
+      </tr>
+      <tr>
+        <td class="label">Country</td>
+        <td class="wideField" colspan="3"><input class="field"
+              id="country" disabled="true"></input></td>
+      </tr>
+    </table>
+            <br />
+            <table style="width: 565px">
+                <tr>
+                    <td colspan="4"> <button  id = "blood_req" style="color: #5b080a; width: 95%"><strong>Submit Request</strong></button></td>
+                    <td colspan="4"> <button  id = "cancel_req" style="color: #5b080a; width: 95%"><strong>Cancel Request</strong></button></td>
+                </tr>
+            </table>
+            <br /><br />
+        </form>
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+            <h1 style=" color: #5b080a "><strong>Your Blood Requests Details!</strong></h1>
+           <small style="color: #00117f"><strong>Check-out The Interested Donor list in Your Notification Page if You Currently Have any Blood Request left!</strong></small>
+            <ul style=" list-style-type: none; color: #5b080a " id="old_req"></ul>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+</div>
+
+ <script src= "{% static 'bloodonor/jquery-1.11.2.js' %}"></script>
+
+
+
+    <script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCLjjDBPSes7ODTCimvpbUYGnZWYxpR7I&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+
+<script type="text/javascript">
+
+
+
+
+$(document).ready(function () {
+
+    var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+    var old = $('#old_req');
+    var user =  "{{user.id}}";
+    var opo,ono,apo,ano,bpo,bno,abpo,abno
+
+ reloadRequests();
+
+ function reloadRequests() {
+     $.ajax({
+         type: 'GET',
+         url: 'http://127.0.0.1:8000/api/get_request/' + user,
+         success: function (requests) {
+             $.each(requests, function (i, request) {
+                 getRequests(request);
+             });
+         }
+     });
+ }
+
+  function getRequests(requ){
+      old.append('<li>'+
+              '<table id="reqTable"><tr>'+
+            '<td><strong>Blood Group:</strong></td><td style="color: #5b080a"><strong> '+requ.bloodGroup+'</strong></td></tr>'+
+            '<tr><td><strong>Needed Date:</strong></td><td style="color: #5b080a"><strong> '+requ.time+'</strong></td></tr>'+
+            '<tr><td><strong>Location:</strong></td><td style="color: #5b080a"><strong>'+requ.street+", "+ requ.road+", "+ requ.city+'</strong></td>'+
+            '<tr><td><strong>Required Units:</strong></td><td style="color: #5b080a"><strong>'+requ.bags+'</strong></td></tr>'+
+            '<tr><td colspan="2"><button  style="width: 100%; color: #5b080a" data-id = '+requ.id+' class="remove"><strong>Complete</strong></button></td></tr></table></li>'+
+              '<br /> <br />'
+      );
+
+  }
+
+
+  old.delegate('.remove', 'click', function(){
+    var $li=$(this).closest('li');
+    var id=$(this).attr('data-id');
+
+    $.ajax({
+      type: 'DELETE',
+      url: 'http://127.0.0.1:8000/api/request/'+id,
+      success: function(){
+        $li.remove();
+      }
+    });
+
+  });
+
+
+
+
+// make new blood request
+ $('#blood_req').on('click',function(e) {
+    e.preventDefault();
+    var street = $('#street_number').val();
+    var road = $('#route').val();
+    var city = $('#locality').val();
+    var state = $('#administrative_area_level_1').val();
+    var country = $('#country').val();
+    var post_code = $('#postal_code').val();
+    var bloodGroup = $('#blood').val();
+    var bag = $('#bagNumber').val();
+    var day = $('#datefield').val();
+
+    var today = new Date();
+    var next = new Date(day);
+    if(!street||!road||!city||!state||!country||!post_code||!bloodGroup||!bag||!day){
+        alert('Empty field Detected! Please try Again!')
+    }
+    if (((next.getTime()-today.getTime())/ (1000 * 3600 * 24)) <-1) {
+            alert("You Can't Choose A Past Date! Please try Again!");
+    }
+    else if ( bag<0 ){
+         alert("Required unit of blood can't be negative! Please try Again!");
+    }
+    else {
+        var Request = {
+            csrfmiddlewaretoken: csrf_token,
+            user: user,
+            bloodGroup: bloodGroup,
+            street: street,
+            road: road,
+            city: city,
+            state: state,
+            country: country,
+            post_code: post_code,
+            time: day,
+            bags: bag,
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:8000/api/request/',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(Request),
+            success: function (newReq) {
+                cancelReq();
+                old.append('<li>' +
+                    '<table id="reqTable"><tr>' +
+                    '<td><strong>Blood Group:</strong></td><td style="color: #5b080a"><strong> ' + newReq.bloodGroup + '</strong></td></tr>' +
+                    '<tr><td><strong>Needed Date:</strong></td><td style="color: #5b080a"><strong> ' + newReq.time + '</strong></td></tr>' +
+                    '<tr><td><strong>Location:</strong></td><td style="color: #5b080a"><strong>' + newReq.street + ", " + newReq.road + ", " + newReq.city + '</strong></td>' +
+                    '<tr><td><strong>Required Units:</strong></td><td style="color: #5b080a"><strong>' + newReq.bags + '</strong></td></tr>' +
+                    '<tr><td colspan="2"><button  style="width: 100%; color: #5b080a" data-id = ' + newReq.id + ' class="remove"><strong>Complete</strong></button></td></tr></table></li>' +
+                    '<br /> <br />'
+                );
+
+
+            }
+        });
+    }
+  });
+     $('#cancel_req').on('click',function(e) {
+        e.preventDefault();
+        cancelReq();
+     });
+    function cancelReq() {
+        $('#blood').val("");
+        $('#bagNumber').val("");
+        $('#datefield').val("");
+        $('#autocomplete').val("");
+        $('#street_number').val("");
+        $('#route').val("");
+        $('#locality').val("");
+        $('#administrative_area_level_1').val("");
+        $('#country').val("");
+        $('#postal_code').val("");
+        $('#autocomplete').val("");
+    }
+     $('#update').on('click',function(e) {
+        e.preventDefault();
+            opo = $('#op').val();
+            ono = $('#on').val();
+            apo = $('#ap').val();
+            ano = $('#an').val();
+            bpo = $('#bp').val();
+            bno = $('#bn').val();
+            abpo = $('#abp').val();
+            abno = $('#abn').val();
+        document.getElementById('op').disabled = false;
+        document.getElementById('on').disabled = false;
+        document.getElementById('ap').disabled = false;
+        document.getElementById('an').disabled = false;
+        document.getElementById('bp').disabled = false;
+        document.getElementById('bn').disabled = false;
+        document.getElementById('abp').disabled = false;
+        document.getElementById('abn').disabled = false;
+     });
+     $('#save').on('click',function(e) {
+         e.preventDefault();
+         if(!document.getElementById('op').disabled){
+             var op = $('#op').val();
+             var on = $('#on').val();
+             var ap = $('#ap').val();
+             var an = $('#an').val();
+             var bp = $('#bp').val();
+             var bn = $('#bn').val();
+             var abp = $('#abp').val();
+             var abn = $('#abn').val();
+
+             if((op!=opo || on!=ono || ap!=apo || an!=ano || bp!=bpo || bn!=bno || abp!=abpo || abn!=abno)) {
+                 var Blood = {
+                     csrfmiddlewaretoken: csrf_token,
+                     o_pos: op,
+                     o_neg: on,
+                     a_pos: ap,
+                     a_neg: an,
+                     b_pos: bp,
+                     b_neg: bn,
+                     ab_pos: abp,
+                     ab_neg: abn,
+                 };
+
+                 $.ajax({
+                     type: 'PUT',
+                     url: 'http://127.0.0.1:8000/api/blood_collection/' + "{{user.blood.id}}",
+                     dataType: 'json',
+                     contentType: "application/json",
+                     data: JSON.stringify(Blood),
+                     success: function (newReq) {
+                         document.getElementById('op').disabled = true;
+                         document.getElementById('on').disabled = true;
+                         document.getElementById('ap').disabled = true;
+                         document.getElementById('an').disabled = true;
+                         document.getElementById('bp').disabled = true;
+                         document.getElementById('bn').disabled = true;
+                         document.getElementById('abp').disabled = true;
+                         document.getElementById('abn').disabled = true;
+                     },
+
+              error: function (err) {
+                  alert('Empty field or Invalid Data! Please try Again with Correct Data!')
+              }
+
+             });
+            }
+            else{
+                 document.getElementById('op').disabled = true;
+                 document.getElementById('on').disabled = true;
+                 document.getElementById('ap').disabled = true;
+                 document.getElementById('an').disabled = true;
+                 document.getElementById('bp').disabled = true;
+                 document.getElementById('bn').disabled = true;
+                 document.getElementById('abp').disabled = true;
+                 document.getElementById('abn').disabled = true;
+             }
+         }
+    });
+
+
+
+    $('#changeDonate').on('click',function(e) {
+        e.preventDefault();
+            var capable = false;
+            var today = new Date();
+            var last = new Date($('#last_donate').val());
+            var timeDiff = Math.abs(today.getTime() - last.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        if (((today.getTime() - last.getTime())/ (1000 * 3600 * 24)) <0) {
+                alert("You Can't Choose A Funture Date!")
+        }
+        else{
+            if (diffDays > 90) {
+                capable = true;
+            }
+
+            var lastDonatedDate = {
+                csrfmiddlewaretoken: csrf_token,
+                last_donated_date: $('#last_donate').val(),
+                capable: capable,
+            }
+
+             $.ajax({
+             type: 'PUT',
+             url: 'http://127.0.0.1:8000/api/donated_date/' + "{{user.donor.id}}",
+             dataType: 'json',
+             contentType: "application/json",
+             data: JSON.stringify(lastDonatedDate),
+             success: function (newReq) {
+                 if(!capable){
+                         $('#able span').text('Not Eligible');
+                 }
+                 else{
+                       $('#able span').text('Eligible');
+                 }
+             },
+
+          error: function (err) {
+              alert('Empty Date Field! Please try Again with Correct Date!')
+          }
+             });
+        }
+     });
+});
+
+</script>
+
+ {%endblock %}
+</body>

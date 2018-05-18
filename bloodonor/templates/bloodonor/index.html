@@ -1,0 +1,96 @@
+{% extends "bloodonor/base.html" %}
+{% load staticfiles %}
+<head>
+    {% block title %}<title>Home | BDonate </title>{% endblock %}
+</head>
+{% block content %}
+    <div>
+        {% if user.is_authenticated %}
+        <h1 style="color: #5b080a">Welcome To <strong style="color: #5b080a;">BDonate</strong> Community! Donate Blood, Stay Healthy!</h1>
+        {% endif %}
+    </div>
+  <div style="color: #F2CBCB">
+      <h1 style="color: #7F2545">Why We Donate Blood?</h1>
+      <h3><p>Blood is the most precious gift that anyone can give to another person — the gift of life.
+      A decision to donate your blood can save a life, or even several if your blood is separated into its components
+          — red cells, platelets and plasma — which can be used individually for patients with specific conditions.</p>
+      <p> Blood transfusion saves lives and improves health, but many patients requiring transfusion do not have timely access to safe blood.
+          The need for blood transfusion may arise at any time in both urban and rural areas.
+          The unavailability of blood has led to deaths and many patients suffering from ill-health.</p>
+          <p> An adequate and reliable supply of safe blood can be assured by a stable base of regular, voluntary, unpaid blood donors.
+              Regular, voluntary, unpaid blood donors are also the safest group of donors as the prevalence of bloodborne infections is lowest among these donors.</p>
+      </h3>
+  </div>
+  <div style="color: #F2CBCB">
+      <h1 style="color: #7F2545">Benefits of Blood Donation?</h1>
+      <h3>Blood donation not only makes the receiver’s life good but also helps the donor to maintain good health.
+          Health benefits of donating blood include good health and a reduced risk of cancer and hemochromatosis.
+          It helps in reducing the risk of damage to liver and pancreas.
+          Donating blood may help in improving cardiovascular health and reducing obesity as well.</h3>
+  </div>
+<div style="color: #F2CBCB">
+    <h1 style="color: #7F2545">Who can give blood?</h1>
+    <h3>Most people can give blood. You can give blood if you:
+        <ul>
+            <li>are fit and healthy</li>
+            <li>weigh between 7 stone 12 lbs and 25 stone, or 50kg and 160kg</li>
+            <li>are aged between 17 and 66 (or 70 if you have given blood before)</li>
+            <li>are over 70 and have given blood in the last two years</li>
+        </ul></h3>
+    <h1 style="color: #7F2545">Who will be disqualified from donating?</h1>
+    <h3><p> But Some people are disqualified from donating blood because they have diseases that are transmissible via blood.
+            Other potential donors are disqualified because their conditions could endanger themselves.
+        According to Stephen Juan, Ph.D. is an anthropologist at the University of Sydney.:</p>
+        <ul><li>
+            Being positive for the AIDS or hepatitis viruses rules one out as a blood donor.</li>
+            <li>Individuals who have had ear, tongue, or other body part piercing are allowed to donate blood as long as the needle used in the piercing was sterile.
+                If it was not or if this is unknown, the potential donor must wait 12 months from the time of the piercing.</li>
+
+            <li>A person with diabetes is allowed to donate blood. Insulin dependent diabetics are allowed to donate blood as long as their insulin syringe, if reused, is used only by them.</li>
+
+            <li>Physically small people are not acceptable as blood donors as they have lower blood volumes and may not be able to safely lose a full pint of blood.</li>
+            <li>One may not donate blood while one has the flu. But one can donate blood after exposure to someone with the flu provided the potential donor feels and has no symptoms.</li>
+
+            <li> Pregnancy and recent childbirth rule one out as a blood donor. The safety of donating blood during and shortly after pregnancy has not been fully established. There may be medical risks to the mother and baby during this time.</li>
+            <li> Having high or low cholesterol does not exclude a person from donating blood.</li>
+            <li>Potential blood donors may be temporarily prevented from donating if they have a low level of iron (hematocrit) in their blood.
+                This requirement is for the safety of the donor in order to ensure that their blood iron level remains within the normal range for a healthy adult.</li>
+            <li>For almost all cancers (such as breast, brain, prostate, and lung), a person may donate blood five years after diagnosis or date of the last surgery, last chemotherapy or last radiation treatment.
+            <ul><li>For blood cancers (such as leukemia or lymphoma), a person is not allowed to donate blood.
+                <li>For non-melanoma skin cancer or a localised cancer that has not spread elsewhere, a person may give blood if the tumour has been removed and healing is complete.</li></ul>
+            <li>If a potential donor has had malaria they cannot donate blood for 12 months. This is because the parasite that causes malaria can lay dormant in a person's system for as long as a year.</li>
+            <li>A person cannot donate blood while they are on antibiotics. This is not because of the antibiotic, but due to the presence of the illness or infection requiring the antibiotic - it may be transmitted through the blood.</li></ul>
+    </h3>
+        <h1 style="color: #7F2545">How often can I give blood?</h1>
+        <h3>
+            People can give blood every 12 weeks and women can give blood every 16 weeks.
+        </h3>
+</div>
+
+<div style="color: #F2CBCB"><h1 style="color: #7F2545">How can <strong style="color: #5b080a;">BDonate</strong> Helps Our Community?</h1>
+    <h3> <p> There is a constant need for regular blood supply because blood can be stored for only a limited time before use.
+            Regular blood donations by a sufficient number of healthy people are needed to ensure that safe blood will be available
+            whenever and wherever it is needed.</p>
+        <p> Blood supply from voluntary unpaid donors is the biggest source of blood collection. Unlike others websites, We are providing
+            a global platform to where users to make dynamic blood requests which to better increase the relationships between blood donors and recipients.
+            Therefore, it can be a vital platform to increase the Blood Donation rate.</p>
+    </h3>
+</div>
+<div style="color: #F2CBCB"><h1 style="color: #7F2545">Who Can Join <strong style="color: #5b080a;">BDonate</strong>?</h1>
+    <h3> <p> Anyone who is minimum 17 years old and wants to donate blood or find donors for safe blood. Blood Banks and Hospitals also can use it for searching Blood Donors.
+            Hospitals and Blood Banks will be provided with a system to maintain their reserved types of Blood. </p>
+        <p> Donors can be both blood giver and receiver. All the users can make request for blood and will be notified
+            for donation if any request matches their blood group and location </p>
+    </h3>
+</div>
+    <br /> <br />
+<div>
+ {% if not user.is_authenticated %}
+     <a style="color: #7F2545" href="{% url 'hospital_signup' %}" ><h3> Hospital or Blood Bank, Why Don't Join <strong style="color: #5b080a;">BDonate</strong> Community here! </h3></a>
+<a style="color: #7F2545" href="{% url 'signup' %}" ><h3> Hey Donors, Why Don't Join <strong style="color: #5b080a;">BDonate</strong> Community here! </h3></a>
+    {% endif %}
+</div>
+    <br /> <br />    <br /> <br />
+{% endblock %}
+</body>
+</html>

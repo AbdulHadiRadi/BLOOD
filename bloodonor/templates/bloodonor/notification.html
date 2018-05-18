@@ -1,0 +1,116 @@
+{% extends "bloodonor/base.html" %}
+{% load staticfiles %}
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    {% block title %}<title> Notification | BDonate </title>{% endblock %}
+
+</head>
+<body>
+{% block content %}
+      <div>
+        <h1 style="color: #5b080a"> People Who Shows Interest To Donate Blood!</h1>
+          {% if not my_req %}
+           <small style="color: #00117f"> <strong>You Have Not Received Any Interested Donor!</strong></small>
+          <br />
+          {% else %}
+            {% for notify in my_req %}{% if notify.interested %}
+          <ul style="list-style-type: none;">
+              <li>
+            <table>
+                <tr>
+                    <td style="color:#7F2545"><h4><strong>Request: <span style="color: #5b080a">{{notify.request.bags}} Units {{notify.request.bloodGroup}} Blood at {{notify.request.time}}</span></strong></h4></td>
+                </tr>
+                <tr>
+                    <td style="color:#7F2545"><h4><strong> Interested People:  <span style="color: #5b080a">{{notify.user.first_name}}</span></strong></h4></td>
+                </tr>
+                    <td style="color:#7F2545"><h4><strong> Phone Number:  <span style="color: #5b080a">{{notify.user.account.phone_number}}</span> </strong></h4></td>
+                </tr>
+            </table>
+          </li></ul>
+              {% endif %}
+          {% endfor %}
+       {% endif %}
+      </div>
+ <br /><br />
+    <div>
+        {% if user.is_donor and user.donor.capable %}
+        <h1 style="color: #5b080a"> Who Needs Blood in Your Locality!</h1>
+        {%if not req%}
+                <small style="color: #00117f"> <strong>You Have Not Received Any Notification of Blood Request!</strong></small>
+        <br />
+        {% else %}
+        <small style="color: #00117f"> <strong>The Request Maker Will Be Notified With Your Phone Number If You Clicked Interested Button!
+            Why Don't You Use The Contract Number for Confirming The Donation Time!</strong></small>
+        <br />
+
+         <ul style="list-style-type: none;" id ="list">
+        {% for notify in req %}
+
+            <li>
+            <table>
+                 <tr>
+                    <td style="width:200px"><strong>Request Maker : </strong></td><td style="width:200px"><strong style="color: #5b080a">{{notify.request.user.first_name}} </strong></td>
+                 </tr>
+                 <tr>
+                    <td style="width:200px"><strong>Required Blood : </strong></td><td style="width:200px"><strong style="color: #5b080a"> {{notify.request.bags}} Units </strong></td>
+                 </tr>
+                 <tr>
+                    <td style="width:200px"><strong>Collecting Date : </strong></td><td style="width:200px"><STRONG style="color: #5b080a"> {{notify.request.time}} </STRONG></td>
+                 </tr>
+                 <tr>
+                    <td style="width:200px"><strong>Collecting Location : </strong></td><td style="width:200px"><STRONG style="color: #5b080a"> {{notify.request.street}},  {{notify.request.road}},  {{notify.request.city}}  </STRONG></td>
+                 </tr>
+                 <tr>
+                    <td style="width:200px"><strong>Contract Number : </strong></td><td style="width:200px"><STRONG style="color: #5b080a"> {{notify.request.user.account.phone_number}}</STRONG></td>
+                 </tr>
+                 <tr>
+                     <td style="width:200px"><button id ="{{ notify.id }}" {% if notify.interested %} style="display: none;" {% endif %}  style="width: 70%; " data-id = '{{ notify.id }}' class = "interested"><strong style="color: #5b080a" > Interested</strong></button> </td>
+                 </tr>
+
+            </table>
+        </li>
+            <br />
+            {% endfor %}
+         </ul>
+        {%endif%}
+            {% if user.is_donor and not user.donor.capable %}
+            <h1 style="color: #5b080a"> You are not Eligible for Donating!</h1>
+            <h4>You will start getting Notification for Blood Request once you are Eligible!</h4>
+        {% endif %}{% endif %}
+    </div>
+
+
+     <br /><br /> <br /><br /> <br /><br />
+<br /><br />
+    <script src= "{% static 'bloodonor/jquery-1.11.2.js' %}"></script>
+    <script>
+
+
+    $(document).ready(function () {
+
+         $('.interested').click(function () {
+             var id = $(this).attr('data-id');
+
+             var interest= {
+                interested : true,
+             };
+
+              $.ajax({
+              type: 'PUT',
+              url: 'http://127.0.0.1:8000/api/notify/'+id,
+              dataType: 'json',
+              contentType: "application/json",
+              data: JSON.stringify(interest),
+              success: function(){
+                   $('#'+id).hide();
+              }
+            });
+
+            });
+         });
+
+
+    </script>
+
+ {%endblock %}
+</body>

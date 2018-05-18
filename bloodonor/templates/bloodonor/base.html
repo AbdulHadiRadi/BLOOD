@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content=""> {% block title %}
+  <title>{{ appname }} | {{ apptagline }}</title>
+  {% endblock %}
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <!-- Font Awesome core CSS -->
+  <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+
+  <!-- Application favicon -->
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/BDonate logo' %}" />
+</head>
+
+<body>
+  <!--<nav class="navbar navbar-inverse">-->
+  <nav class="navbar-default" style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-left" href="{% url 'index' %}">
+          <img style=" width: 65%" id='navbar-logo' src="{% static 'images/BDonate logo.png' %}">
+        </a>
+      </div>
+    </div>
+        <div class="container-fluid">
+      <div class="navbar-header">
+      <ul class="nav navbar-nav">
+                      {% with url_name=request.resolver_match.url_name %}
+        <li class="dropdown {% if url_name == 'index' %}active{% endif %}">
+            <a style="color: #5b080a" href="{% url 'index' %}" ><strong>HOME</strong></a>
+        </li>
+            {% endwith %}
+
+          {% if user.is_authenticated %}
+
+          {% with url_name=request.resolver_match.url_name %}
+        <li class=" {% if url_name == 'home' %}active{% endif %}">
+            <a style="color: #5b080a" href="{% url 'home' %}" ><strong>PROFILE</strong> </a>
+        </li>
+        {% endwith %}
+                            {% with url_name=request.resolver_match.url_name %}
+        <li class=" {% if url_name == 'notify' %}active{% endif %}">
+            <a class="navbar-right" style="color: #5b080a" href="{% url 'notify' %}" ><strong>NOTIFICATION</strong></a>
+        </li>
+        {% endwith %}
+
+                  {% with url_name=request.resolver_match.url_name %}
+        <li class=" {% if url_name == 'logout' %}active{% endif %}">
+            <a class="navbar-right" style="color: #5b080a" href="{% url 'logout' %}" ><strong>LOGOUT</strong></a>
+        </li>
+        {% endwith %}
+
+        {%else%}
+
+            {% with url_name=request.resolver_match.url_name %}
+        <li class=" {% if url_name == 'hospital_signup' %}active{% endif %}">
+            <a style="color: #5b080a" href="{% url 'hospital_signup' %}" ><strong>SIGNUP-HOSPITAL</strong></a>
+        </li>
+            {% endwith %}
+
+            {% with url_name=request.resolver_match.url_name %}
+        <li class=" {% if url_name == 'signup' %}active{% endif %}">
+            <a style="color: #5b080a" href="{% url 'signup' %}" ><strong>SIGNUP-DONOR</strong></a>
+        </li>
+            {% endwith %}
+                      {% with url_name=request.resolver_match.url_name %}
+        <li class=" {% if url_name == 'login' %}active{% endif %}">
+            <a style="color: #5b080a" href="{% url 'login' %}" ><strong>LOGIN</strong></a>
+        </li>
+            {% endwith %}
+        {%endif%}
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+  <div class="col-sm-10 ">
+    {% block content %}{% endblock %}
+  </div>
+  <!-- Bootstrap core JavaScript
+   ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% load static %}
+  <script src= "{% static 'bloodonor/jquery-1.11.2.js' %}"></script>
+
+
+</body>
+
+</html>

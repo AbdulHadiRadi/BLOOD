@@ -1,0 +1,32 @@
+{% extends "bloodonor/base.html" %}
+
+
+<head>
+    {% block title %}<title>SIGN-IN | BDonate </title>{% endblock %}
+</head>
+
+{% block content %}
+
+<h1 style="color: #5b080a"><span class="glyphicon glyphicon-log-in"> </span><strong> LOGIN</strong></h1>
+  <form method="post">
+    {% csrf_token %}
+      {% if form.errors %}
+        <h3 style="color: #5b080a"><strong>username or password not correct</strong></h3>
+      {% endif %}
+    <span class="heading" style="color: #5b080a">{{ form.username.label_tag }}</span><br/>
+      {{ form.username }}<br/>
+    <span class="heading" style="color: #5b080a">{{ form.password.label_tag }}</span><br/>
+      {{ form.password }}<br/>
+      <br />
+    <button type="submit" style="width:180px; color: #5b080a"><strong>SIGN IN</strong></button>
+  </form>
+      <br />
+<a style="color: #5b080a" href="{% url 'password_reset' %}"><h1><strong>PASSWORD RESET</strong></h1></a><br />
+        <br />
+     <!--<p style="color: yellow"><strong>&#45;&#45; OR &#45;&#45;</strong></p>-->
+    <!--<p><strong><a style="color: yellow" href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a></strong></p>-->
+
+    <!--<p><strong><a style="color: yellow" href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a></strong></p>-->
+
+    <!--<p><strong><a style="color: yellow" href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br /></strong></p>-->
+      {% endblock %}
